@@ -1,31 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* School Official Branding */
-  --royal-blue: #077fd6;         /* Logo's signature royal blue */
-  --royal-blue-deep: #0a3d78;    /* Academic royal blue */
-  --royal-blue-dark: #08244a;    /* High-contrast royal navy */
-  --royal-blue-hover: #066bb7;
+  /* Goodword Business Center Brand Colors */
+  --brand-navy: #0f3051;         /* Logo's primary dark navy */
+  --brand-navy-dark: #0a223a;
+  --brand-teal: #029a9b;         /* Logo's signature teal */
+  --brand-teal-hover: #028283;
+  --brand-teal-light: #edf9f9;
+  --brand-teal-border: #c9e8e8;
 
-  --gold: #d4af37;               /* Official laurel gold */
+  --gold: #d4af37;               /* Accent gold */
   --gold-rich: #c49826;
-  --gold-light: #fef7e6;
-  --gold-border: rgba(212, 175, 55, 0.4);
 
   --white: #ffffff;
-  --bg-page: #f5f8fc;            /* Minimal, crisp announcement board background */
+  --bg-page: #f5f8fb;            /* Minimal, crisp announcement board background */
   --card-bg: #ffffff;
   --card-border: #e2ecf5;
-  --light-blue-surface: #eaf3fb;
-  --light-blue-border: #d4e7f7;
+  --light-surface: #edf8f8;
+  --light-border: #d8e8f2;
 
-  --text-dark: #09213f;
-  --text-muted: #536984;
-  --text-light: #718398;
+  --text-dark: #0f3051;
+  --text-muted: #5e7288;
+  --text-light: #7c90a5;
 
-  --shadow-sm: 0 2px 8px rgba(7, 127, 214, 0.06);
-  --shadow-card: 0 4px 18px rgba(8, 36, 74, 0.06);
-  --shadow-hover: 0 14px 32px rgba(7, 127, 214, 0.14);
+  --shadow-sm: 0 2px 8px rgba(15, 48, 81, 0.05);
+  --shadow-card: 0 4px 18px rgba(15, 48, 81, 0.06);
+  --shadow-hover: 0 14px 32px rgba(2, 154, 155, 0.16);
 }
 
 * {
@@ -52,32 +52,28 @@ body {
 /* 1. Header */
 .announcement-header {
   background: var(--white);
-  border-bottom: 1px solid var(--light-blue-border);
-  padding: 38px 24px 34px;
+  border-bottom: 1px solid var(--light-border);
+  padding: 34px 24px 30px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 2px 10px rgba(7, 127, 214, 0.04);
+  box-shadow: 0 2px 10px rgba(15, 48, 81, 0.04);
 }
 
 .logo-container {
-  width: 72px;
-  height: 72px;
-  background: var(--white);
-  border-radius: 50%;
-  padding: 4px;
-  border: 2px solid var(--gold);
-  box-shadow: 0 4px 14px rgba(7, 127, 214, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
+  max-width: 100%;
 }
 
 .school-logo {
+  max-width: 300px;
   width: 100%;
-  height: 100%;
+  height: auto;
+  max-height: 85px;
   object-fit: contain;
   display: block;
 }
@@ -88,7 +84,7 @@ body {
 
 .school-name {
   display: inline-block;
-  color: var(--gold-rich);
+  color: var(--brand-teal);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 2.5px;
@@ -98,8 +94,8 @@ body {
 
 .announcement-header h1 {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(26px, 4vw, 36px);
-  color: var(--royal-blue-dark);
+  font-size: clamp(25px, 4vw, 34px);
+  color: var(--brand-navy);
   margin-bottom: 8px;
   font-weight: 800;
   letter-spacing: -0.5px;
@@ -127,11 +123,11 @@ body {
   align-items: center;
   margin-bottom: 24px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--light-blue-border);
+  border-bottom: 1px solid var(--light-border);
 }
 
 .board-badge {
-  color: var(--royal-blue-deep);
+  color: var(--brand-navy);
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.5px;
@@ -144,19 +140,19 @@ body {
   content: '';
   width: 8px;
   height: 8px;
-  background: var(--royal-blue);
+  background: var(--brand-teal);
   border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(7, 127, 214, 0.2);
+  box-shadow: 0 0 0 3px rgba(2, 154, 155, 0.2);
 }
 
 .board-count {
-  color: var(--gold-rich);
+  color: var(--brand-teal);
   font-size: 11.5px;
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
   background: var(--white);
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--brand-teal-border);
   padding: 5px 12px;
   border-radius: 20px;
 }
@@ -186,7 +182,7 @@ body {
 
 .opportunity-card:hover {
   transform: translateY(-4px);
-  border-color: var(--gold);
+  border-color: var(--brand-teal);
   box-shadow: var(--shadow-hover);
 }
 
@@ -203,9 +199,9 @@ body {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--royal-blue);
-  background: var(--light-blue-surface);
-  border: 1px solid var(--light-blue-border);
+  color: var(--brand-teal);
+  background: var(--brand-teal-light);
+  border: 1px solid var(--brand-teal-border);
   padding: 4px 10px;
   border-radius: 6px;
 }
@@ -222,14 +218,14 @@ body {
 .card-title {
   font-size: 19px;
   font-weight: 700;
-  color: var(--royal-blue-dark);
+  color: var(--brand-navy);
   margin-bottom: 10px;
   line-height: 1.35;
   transition: color 0.2s ease;
 }
 
 .opportunity-card:hover .card-title {
-  color: var(--royal-blue);
+  color: var(--brand-teal);
 }
 
 .card-desc {
@@ -243,7 +239,7 @@ body {
 /* Card Details (Duration & Stipend) */
 .card-details {
   background: var(--bg-page);
-  border: 1px solid var(--light-blue-border);
+  border: 1px solid var(--light-border);
   border-radius: 8px;
   padding: 12px 14px;
   display: flex;
@@ -266,19 +262,19 @@ body {
 }
 
 .detail-value {
-  color: var(--royal-blue-dark);
+  color: var(--brand-navy);
   font-weight: 700;
 }
 
 .stipend-item {
   padding-top: 6px;
-  border-top: 1px dashed var(--light-blue-border);
+  border-top: 1px dashed var(--light-border);
 }
 
 .stipend-pill {
-  background: rgba(212, 175, 55, 0.16);
-  color: #8c6708;
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(2, 154, 155, 0.12);
+  color: #028283;
+  border: 1px solid rgba(2, 154, 155, 0.35);
   padding: 3px 8px;
   border-radius: 4px;
   font-size: 11.5px;
@@ -305,7 +301,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--royal-blue);
+  background: var(--brand-navy);
   color: var(--white);
   font-size: 12.5px;
   font-weight: 700;
@@ -321,8 +317,8 @@ body {
 }
 
 .opportunity-card:hover .apply-btn {
-  background: var(--gold);
-  color: var(--royal-blue-dark);
+  background: var(--brand-teal);
+  color: var(--white);
 }
 
 .opportunity-card:hover .apply-btn .arrow {
@@ -332,7 +328,7 @@ body {
 /* 3. Footer */
 .announcement-footer {
   background: var(--white);
-  border-top: 1px solid var(--light-blue-border);
+  border-top: 1px solid var(--light-border);
   padding: 24px;
   text-align: center;
   color: var(--text-muted);
@@ -341,7 +337,7 @@ body {
 
 .announcement-footer p {
   font-weight: 700;
-  color: var(--royal-blue-dark);
+  color: var(--brand-navy);
   margin-bottom: 4px;
 }
 
@@ -353,13 +349,12 @@ body {
 /* Responsive (Mobile QR Code Visitors) */
 @media (max-width: 768px) {
   .announcement-header {
-    padding: 28px 18px 24px;
+    padding: 24px 18px 20px;
   }
 
-  .logo-container {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 12px;
+  .school-logo {
+    max-width: 230px;
+    max-height: 65px;
   }
 
   .announcement-header p {
@@ -367,7 +362,7 @@ body {
   }
 
   .announcement-main {
-    padding: 24px 16px 44px;
+    padding: 22px 16px 44px;
   }
 
   .opportunities-grid {

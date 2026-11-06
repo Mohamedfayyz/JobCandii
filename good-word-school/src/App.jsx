@@ -1,8 +1,8 @@
 import "./App.css";
-import schoolLogo from "./assets/good-word-logo.png";
+import goodwordLogo from "./assets/goodword-logo.png";
 
 // ============================================================================
-// EDITABLE OPPORTUNITIES DATA - Good Word Incubation Centre
+// EDITABLE OPPORTUNITIES DATA - Goodword Business Center / Incubation Centre
 //
 // Exactly FOUR (4) available job/internship opportunities.
 // Update the fields below when verified announcement details are provided.
@@ -17,7 +17,7 @@ const OPPORTUNITIES = [
     stipend: "Stipend Provided (Placeholder)",
     duration: "3 - 6 Months",
     description:
-      "Contribute to hands-on technology and development projects supported by the Good Word Incubation Centre."
+      "Contribute to hands-on technology and development projects supported by the Goodword Business Center Incubation team."
   },
   {
     id: 2,
@@ -61,13 +61,13 @@ export default function App() {
       <header className="announcement-header">
         <div className="logo-container">
           <img
-            src={schoolLogo}
-            alt="Good Word Public School Logo"
+            src={goodwordLogo}
+            alt="Goodword Business Center Logo"
             className="school-logo"
           />
         </div>
         <div className="header-meta">
-          <span className="school-name">GOOD WORD PUBLIC SCHOOL</span>
+          <span className="school-name">GOODWORD BUSINESS CENTER</span>
           <h1>Incubation Centre – Opportunities</h1>
           <p>Explore our latest internship and job openings.</p>
         </div>
@@ -133,7 +133,7 @@ export default function App() {
       {/* Footer */}
       <footer className="announcement-footer">
         <p>
-          Good Word Public School · Incubation Centre
+          Goodword Business Center · Incubation Centre
         </p>
         <span className="footer-subtext">
           Applications are submitted and processed through JobCandii.

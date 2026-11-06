@@ -1,0 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* School Official Branding */
+  --royal-blue: #077fd6;         /* Logo's signature royal blue */
+  --royal-blue-deep: #0a3d78;    /* Academic royal blue */
+  --royal-blue-dark: #08244a;    /* High-contrast royal navy */
+  --royal-blue-hover: #066bb7;
+
+  --gold: #d4af37;               /* Official laurel gold */
+  --gold-rich: #c49826;
+  --gold-light: #fef7e6;
+  --gold-border: rgba(212, 175, 55, 0.4);
+
+  --white: #ffffff;
+  --bg-page: #f5f8fc;            /* Minimal, crisp announcement board background */
+  --card-bg: #ffffff;
+  --card-border: #e2ecf5;
+  --light-blue-surface: #eaf3fb;
+  --light-blue-border: #d4e7f7;
+
+  --text-dark: #09213f;
+  --text-muted: #536984;
+  --text-light: #718398;
+
+  --shadow-sm: 0 2px 8px rgba(7, 127, 214, 0.06);
+  --shadow-card: 0 4px 18px rgba(8, 36, 74, 0.06);
+  --shadow-hover: 0 14px 32px rgba(7, 127, 214, 0.14);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-dark);
+  background-color: var(--bg-page);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Page Container */
+.announcement-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 1. Header */
+.announcement-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--light-blue-border);
+  padding: 38px 24px 34px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(7, 127, 214, 0.04);
+}
+
+.logo-container {
+  width: 72px;
+  height: 72px;
+  background: var(--white);
+  border-radius: 50%;
+  padding: 4px;
+  border: 2px solid var(--gold);
+  box-shadow: 0 4px 14px rgba(7, 127, 214, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.school-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.header-meta {
+  max-width: 700px;
+}
+
+.school-name {
+  display: inline-block;
+  color: var(--gold-rich);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.announcement-header h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(26px, 4vw, 36px);
+  color: var(--royal-blue-dark);
+  margin-bottom: 8px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+}
+
+.announcement-header p {
+  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* 2. Announcement Section */
+.announcement-main {
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 36px 24px 60px;
+  flex: 1;
+}
+
+.board-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--light-blue-border);
+}
+
+.board-badge {
+  color: var(--royal-blue-deep);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.board-badge::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--royal-blue);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(7, 127, 214, 0.2);
+}
+
+.board-count {
+  color: var(--gold-rich);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--white);
+  border: 1px solid var(--gold-border);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+/* Opportunities Grid - Exactly 4 Cards */
+.opportunities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* Opportunity Card - Whole card clickable */
+.opportunity-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 26px 26px 22px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.22s ease;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  position: relative;
+}
+
+.opportunity-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  gap: 10px;
+}
+
+.card-domain {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--royal-blue);
+  background: var(--light-blue-surface);
+  border: 1px solid var(--light-blue-border);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.card-type-chip {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: #f0f4f8;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.card-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--royal-blue-dark);
+  margin-bottom: 10px;
+  line-height: 1.35;
+  transition: color 0.2s ease;
+}
+
+.opportunity-card:hover .card-title {
+  color: var(--royal-blue);
+}
+
+.card-desc {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  line-height: 1.65;
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+/* Card Details (Duration & Stipend) */
+.card-details {
+  background: var(--bg-page);
+  border: 1px solid var(--light-blue-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  gap: 8px;
+}
+
+.detail-label {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.detail-value {
+  color: var(--royal-blue-dark);
+  font-weight: 700;
+}
+
+.stipend-item {
+  padding-top: 6px;
+  border-top: 1px dashed var(--light-blue-border);
+}
+
+.stipend-pill {
+  background: rgba(212, 175, 55, 0.16);
+  color: #8c6708;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 800;
+}
+
+/* Card Footer */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid #edf2f7;
+  gap: 10px;
+}
+
+.card-location {
+  font-size: 11.5px;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.apply-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--royal-blue);
+  color: var(--white);
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 9px 16px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.apply-btn .arrow {
+  font-size: 13px;
+  font-weight: 800;
+  transition: transform 0.2s ease;
+}
+
+.opportunity-card:hover .apply-btn {
+  background: var(--gold);
+  color: var(--royal-blue-dark);
+}
+
+.opportunity-card:hover .apply-btn .arrow {
+  transform: translate(2px, -2px);
+}
+
+/* 3. Footer */
+.announcement-footer {
+  background: var(--white);
+  border-top: 1px solid var(--light-blue-border);
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.announcement-footer p {
+  font-weight: 700;
+  color: var(--royal-blue-dark);
+  margin-bottom: 4px;
+}
+
+.footer-subtext {
+  font-size: 11.5px;
+  color: var(--text-light);
+}
+
+/* Responsive (Mobile QR Code Visitors) */
+@media (max-width: 768px) {
+  .announcement-header {
+    padding: 28px 18px 24px;
+  }
+
+  .logo-container {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 12px;
+  }
+
+  .announcement-header p {
+    font-size: 13.5px;
+  }
+
+  .announcement-main {
+    padding: 24px 16px 44px;
+  }
+
+  .opportunities-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .opportunity-card {
+    padding: 20px 18px 18px;
+  }
+
+  .card-title {
+    font-size: 17px;
+  }
+
+  .card-footer {
+    flex-direction: row;
+  }
+
+  .apply-btn {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+}

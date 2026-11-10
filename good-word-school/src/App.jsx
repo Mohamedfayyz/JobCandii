@@ -2,7 +2,7 @@ import "./App.css";
 import goodwordLogo from "./assets/goodword-logo.png";
 
 // ============================================================================
-// OPPORTUNITIES DATA - Goodword Business Center / Entrepreneur Centre
+// OPPORTUNITIES DATA - Goodwork Entrepreneurship Center
 // Exactly FIVE (5) official internship opportunities.
 // ============================================================================
 const OPPORTUNITIES = [
@@ -11,7 +11,7 @@ const OPPORTUNITIES = [
     title: "IT – Web Development Intern",
     domain: "Information Technology",
     type: "Internship",
-    stipend: "₹8,000 – ₹10,000 / Month",
+    stipend: "Not Disclosed",
     duration: "3 Months",
     description:
       "Develop responsive web interfaces, optimize site performance, and assist in maintaining modern web platforms and internal digital tools."
@@ -21,7 +21,7 @@ const OPPORTUNITIES = [
     title: "Full Stack Development Intern",
     domain: "Software Development",
     type: "Internship",
-    stipend: "₹8,000 – ₹12,000 / Month",
+    stipend: "Not Disclosed",
     duration: "3 Months",
     description:
       "Build dynamic full-stack applications, implement frontend features, integrate RESTful APIs, and support backend database workflows."
@@ -31,7 +31,7 @@ const OPPORTUNITIES = [
     title: "UI / UX Design Intern",
     domain: "Design & Creative",
     type: "Internship",
-    stipend: "₹7,000 – ₹10,000 / Month",
+    stipend: "Not Disclosed",
     duration: "3 Months",
     description:
       "Design user-friendly interfaces, create wireframes and interactive prototypes, and contribute to cohesive visual design systems."
@@ -41,7 +41,7 @@ const OPPORTUNITIES = [
     title: "Purchase Executive Intern",
     domain: "Procurement & Operations",
     type: "Internship",
-    stipend: "₹6,000 – ₹8,000 / Month",
+    stipend: "Not Disclosed",
     duration: "3 Months",
     description:
       "Support procurement workflows, vendor communication, purchase order processing, and market quotation analysis for business operations."
@@ -51,7 +51,7 @@ const OPPORTUNITIES = [
     title: "Mechanical Designer Intern",
     domain: "Engineering & Design",
     type: "Internship",
-    stipend: "₹8,000 – ₹12,000 / Month",
+    stipend: "Not Disclosed",
     duration: "3 Months",
     description:
       "Create detailed 2D/3D CAD models, assist in mechanical prototyping, and prepare technical drawings for new product developments."
@@ -69,13 +69,13 @@ export default function App() {
         <div className="logo-container">
           <img
             src={goodwordLogo}
-            alt="Goodword Business Center Logo"
+            alt="Goodwork Entrepreneurship Center Logo"
             className="school-logo"
           />
         </div>
         <div className="header-meta">
-          <span className="school-name">GOODWORD BUSINESS CENTER</span>
-          <h1>Entrepreneur Centre – Opportunities</h1>
+          <span className="school-name">GOODWORK ENTREPRENEURSHIP CENTER</span>
+          <h1>Entrepreneurship Center – Opportunities</h1>
           <p>Explore our latest internship and job openings.</p>
         </div>
       </header>
@@ -127,7 +127,7 @@ export default function App() {
               )}
 
               <div className="card-footer">
-                <span className="card-location">📍 Entrepreneur Centre</span>
+                <span className="card-location">📍 Entrepreneurship Center</span>
                 <span className="apply-btn">
                   Apply Now <span className="arrow">↗</span>
                 </span>
@@ -140,7 +140,7 @@ export default function App() {
       {/* Footer */}
       <footer className="announcement-footer">
         <p>
-          Goodword Business Center · Entrepreneur Centre
+          Goodwork Entrepreneurship Center · Entrepreneurship Center
         </p>
         <span className="footer-subtext">
           Applications are submitted and processed through JobCandii.

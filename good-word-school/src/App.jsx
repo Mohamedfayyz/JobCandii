@@ -2,52 +2,59 @@ import "./App.css";
 import goodwordLogo from "./assets/goodword-logo.png";
 
 // ============================================================================
-// EDITABLE OPPORTUNITIES DATA - Goodword Business Center / Incubation Centre
-//
-// Exactly FOUR (4) available job/internship opportunities.
-// Update the fields below when verified announcement details are provided.
-// If stipend or duration is not provided, set to null or empty string ("").
+// OPPORTUNITIES DATA - Goodword Business Center / Entrepreneur Centre
+// Exactly FIVE (5) official internship opportunities.
 // ============================================================================
 const OPPORTUNITIES = [
   {
     id: 1,
-    title: "[Opportunity Title Placeholder 1 - e.g., Web Development Intern]",
-    domain: "Technology & Development",
-    type: "Internship", // Internship | Part-time | Full-time
-    stipend: "Stipend Provided (Placeholder)",
-    duration: "3 - 6 Months",
+    title: "IT – Web Development Intern",
+    domain: "Information Technology",
+    type: "Internship",
+    stipend: "₹8,000 – ₹10,000 / Month",
+    duration: "3 Months",
     description:
-      "Contribute to hands-on technology and development projects supported by the Goodword Business Center Incubation team."
+      "Develop responsive web interfaces, optimize site performance, and assist in maintaining modern web platforms and internal digital tools."
   },
   {
     id: 2,
-    title: "[Opportunity Title Placeholder 2 - e.g., UI/UX Design Intern]",
-    domain: "Design & Creative",
+    title: "Full Stack Development Intern",
+    domain: "Software Development",
     type: "Internship",
-    stipend: "Stipend Provided (Placeholder)",
+    stipend: "₹8,000 – ₹12,000 / Month",
     duration: "3 Months",
     description:
-      "Create interface prototypes, branding materials, and digital graphics for incubation initiatives."
+      "Build dynamic full-stack applications, implement frontend features, integrate RESTful APIs, and support backend database workflows."
   },
   {
     id: 3,
-    title: "[Opportunity Title Placeholder 3 - e.g., Digital Marketing Intern]",
-    domain: "Digital Marketing",
+    title: "UI / UX Design Intern",
+    domain: "Design & Creative",
     type: "Internship",
-    stipend: "Stipend Provided (Placeholder)",
-    duration: "3 - 6 Months",
+    stipend: "₹7,000 – ₹10,000 / Month",
+    duration: "3 Months",
     description:
-      "Assist with online outreach, campaign planning, and social growth for incubated startup projects."
+      "Design user-friendly interfaces, create wireframes and interactive prototypes, and contribute to cohesive visual design systems."
   },
   {
     id: 4,
-    title: "[Opportunity Title Placeholder 4 - e.g., Operations Associate]",
-    domain: "Business Development",
-    type: "Part-time / Full-time",
-    stipend: "Honorarium / Stipend (Placeholder)",
-    duration: "6 Months",
+    title: "Purchase Executive Intern",
+    domain: "Procurement & Operations",
+    type: "Internship",
+    stipend: "₹6,000 – ₹8,000 / Month",
+    duration: "3 Months",
     description:
-      "Support incubation centre operations, startup coordination, and entrepreneurship activities."
+      "Support procurement workflows, vendor communication, purchase order processing, and market quotation analysis for business operations."
+  },
+  {
+    id: 5,
+    title: "Mechanical Designer Intern",
+    domain: "Engineering & Design",
+    type: "Internship",
+    stipend: "₹8,000 – ₹12,000 / Month",
+    duration: "3 Months",
+    description:
+      "Create detailed 2D/3D CAD models, assist in mechanical prototyping, and prepare technical drawings for new product developments."
   }
 ];
 
@@ -68,16 +75,16 @@ export default function App() {
         </div>
         <div className="header-meta">
           <span className="school-name">GOODWORD BUSINESS CENTER</span>
-          <h1>Incubation Centre – Opportunities</h1>
+          <h1>Entrepreneur Centre – Opportunities</h1>
           <p>Explore our latest internship and job openings.</p>
         </div>
       </header>
 
-      {/* 2. Announcement Section: Exactly 4 Cards */}
+      {/* 2. Announcement Section: Exactly 5 Cards */}
       <main className="announcement-main">
         <div className="board-bar">
           <span className="board-badge">Active Openings</span>
-          <span className="board-count">04 Positions Available</span>
+          <span className="board-count">05 Positions Available</span>
         </div>
 
         <div className="opportunities-grid">
@@ -120,7 +127,7 @@ export default function App() {
               )}
 
               <div className="card-footer">
-                <span className="card-location">📍 Incubation Centre</span>
+                <span className="card-location">📍 Entrepreneur Centre</span>
                 <span className="apply-btn">
                   Apply Now <span className="arrow">↗</span>
                 </span>
@@ -133,7 +140,7 @@ export default function App() {
       {/* Footer */}
       <footer className="announcement-footer">
         <p>
-          Goodword Business Center · Incubation Centre
+          Goodword Business Center · Entrepreneur Centre
         </p>
         <span className="footer-subtext">
           Applications are submitted and processed through JobCandii.

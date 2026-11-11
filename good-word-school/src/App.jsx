@@ -214,12 +214,12 @@ export default function App() {
         <div className="logo-container">
           <img
             src={goodwordLogo}
-            alt="Goodwork Entrepreneurship Center Logo"
+            alt="Goodword Entrepreneurship Center Logo"
             className="school-logo"
           />
         </div>
         <div className="header-meta">
-          <span className="school-name">GOODWORK ENTREPRENEURSHIP CENTER</span>
+          <span className="school-name">GOODWORD ENTREPRENEURSHIP CENTER</span>
           <h1>Entrepreneurship Center – Opportunities</h1>
           <p>Explore our latest internship and job openings.</p>
         </div>
@@ -316,7 +316,7 @@ export default function App() {
       {/* Footer */}
       <footer className="announcement-footer">
         <p>
-          Goodwork Entrepreneurship Center · Entrepreneurship Center
+          Goodword Entrepreneurship Center · Entrepreneurship Center
         </p>
         <span className="footer-subtext">
           Applications are submitted and processed through JobCandii.
@@ -358,7 +358,7 @@ export default function App() {
 
               <div className="modal-meta-row">
                 <span className="modal-meta-item">
-                  🏢 {jobDetails?.company || "Goodwork Entrepreneurship Center"}
+                  🏢 {jobDetails?.company || "Goodword Entrepreneurship Center"}
                 </span>
                 <span className="modal-meta-item">
                   📍 {jobDetails?.location || "Chennai"}

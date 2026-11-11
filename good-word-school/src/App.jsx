@@ -207,28 +207,177 @@ export default function App() {
     ? `https://job-candii.vercel.app/jobs/${activeModalJob.jobCandiiId}`
     : JOB_CANDII_URL;
 
+  // Light, subtle 3D Tilt Hover Animation
+  const handleCardMouseMove = (e) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    // Gentle micro-tilt angles: max ~1.8deg for a light, refined feel
+    const rotateX = ((y - centerY) / centerY) * -1.8;
+    const rotateY = ((x - centerX) / centerX) * 1.8;
+
+    card.style.transform = `perspective(2000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-3px)`;
+    card.style.setProperty("--glare-x", `${((x / rect.width) * 100).toFixed(1)}%`);
+    card.style.setProperty("--glare-y", `${((y / rect.height) * 100).toFixed(1)}%`);
+    card.style.setProperty("--glare-opacity", "1");
+    card.style.transition = "transform 0.12s ease-out, box-shadow 0.25s ease, border-color 0.25s ease";
+  };
+
+  const handleCardMouseLeave = (e) => {
+    const card = e.currentTarget;
+    card.style.transform = "perspective(2000px) rotateX(0deg) rotateY(0deg) translateY(0px)";
+    card.style.setProperty("--glare-opacity", "0");
+    card.style.transition = "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease, border-color 0.3s ease";
+  };
+
   return (
     <div className="announcement-page">
-      {/* 1. Header */}
-      <header className="announcement-header">
-        <div className="logo-container">
-          <img
-            src={goodwordLogo}
-            alt="Goodword Entrepreneurship Center Logo"
-            className="school-logo"
-          />
+      {/* 1. Top Navigation Bar */}
+      <nav className="portal-navbar">
+        <div className="navbar-container">
+          <div className="navbar-brand">
+            <img
+              src={goodwordLogo}
+              alt="Goodwork Entrepreneurship Center Logo"
+              className="navbar-logo"
+            />
+          </div>
+          <div className="navbar-meta">
+            <span className="navbar-badge">
+              <span className="live-dot" />
+              Active Opportunities
+            </span>
+            <a
+              href={JOB_CANDII_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="navbar-cta-btn"
+            >
+              Browse on JobCandii ↗
+            </a>
+          </div>
         </div>
-        <div className="header-meta">
-          <span className="school-name">GOODWORD ENTREPRENEURSHIP CENTER</span>
-          <h1>Entrepreneurship Center – Opportunities</h1>
-          <p>Explore our latest internship and job openings.</p>
+      </nav>
+
+      {/* 2. Hero Section */}
+      <header className="portal-hero">
+        <div className="hero-container">
+          <span className="hero-kicker">
+            Find Internships, Practical Experience &amp; Career Opportunities
+          </span>
+          <h1 className="hero-title">
+            Drop Resume &amp; Launch Your Career
+          </h1>
+          <p className="hero-subtitle">
+            Explore curated internship pathways at Goodwork Entrepreneurship Center designed to build practical skills, deliver real-world projects, and accelerate professional growth.
+          </p>
         </div>
       </header>
 
-      {/* 2. Announcement Section: Exactly 5 Cards */}
-      <main className="announcement-main">
+      {/* 3. Floating Introduction Showcase (Replacing Search Bar) */}
+      <section className="intro-showcase-section">
+        <div className="intro-card">
+          <div className="intro-card-header">
+            <div className="intro-pill">
+              <span className="intro-pill-sparkle">✦</span>
+              <span>Goodwork Entrepreneurship Center</span>
+            </div>
+            <span className="intro-tag">Practical Learning &amp; Internships</span>
+          </div>
+
+          <h2 className="intro-card-title">
+            Hands-On Practical Experience &amp; Professional Skill Development
+          </h2>
+
+          <p className="intro-card-text">
+            The Goodwork Entrepreneurship Center provides immersive internship and learning opportunities for students and emerging talent to gain practical experience, develop professional skills, and work on real-world projects alongside experienced industry mentors.
+          </p>
+
+          <div className="intro-highlights-row">
+            <div className="intro-highlight-item">
+              <span className="highlight-icon" aria-hidden="true">
+                <svg
+                  className="feature-svg-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect width="20" height="14" x="2" y="7" rx="2" />
+                  <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                  <path d="M12 12v2" />
+                </svg>
+              </span>
+              <div className="highlight-text">
+                <strong>Real-World Projects</strong>
+                <span>Hands-on problem solving</span>
+              </div>
+            </div>
+            <div className="intro-highlight-item">
+              <span className="highlight-icon" aria-hidden="true">
+                <svg
+                  className="feature-svg-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </span>
+              <div className="highlight-text">
+                <strong>Dedicated Mentorship</strong>
+                <span>Direct professional guidance</span>
+              </div>
+            </div>
+            <div className="intro-highlight-item">
+              <span className="highlight-icon" aria-hidden="true">
+                <svg
+                  className="feature-svg-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                  <polyline points="16 7 22 7 22 13" />
+                </svg>
+              </span>
+              <div className="highlight-text">
+                <strong>Career Acceleration</strong>
+                <span>Industry-ready practical skills</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Opportunities Section: "Jobs You May Be Interested In" */}
+      <main className="announcement-main" id="opportunities-section">
+        <div className="section-header-centered">
+          <span className="section-kicker">ACTIVE OPENINGS</span>
+          <h2 className="section-heading">Jobs You May Be Interested In</h2>
+          <p className="section-subheading">
+            Review detailed requirements, live applicant counts, and apply directly through JobCandii.
+          </p>
+        </div>
+
         <div className="board-bar">
-          <span className="board-badge">Active Openings</span>
+          <span className="board-badge">Official Opportunities</span>
           <span className="board-count">05 Positions Available</span>
         </div>
 
@@ -248,10 +397,13 @@ export default function App() {
             return (
               <a
                 key={opp.id}
+                id={`opp-card-${opp.id}`}
                 href={JOB_CANDII_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="opportunity-card"
+                onMouseMove={handleCardMouseMove}
+                onMouseLeave={handleCardMouseLeave}
                 aria-label={`Apply for ${opp.title} on JobCandii`}
               >
                 <div className="card-header">
@@ -259,7 +411,7 @@ export default function App() {
                   <span className="card-type-chip">{opp.type}</span>
                 </div>
 
-                <h2 className="card-title">{opp.title}</h2>
+                <h3 className="card-title">{opp.title}</h3>
 
                 <p className="card-desc">{opp.description}</p>
 
@@ -313,17 +465,25 @@ export default function App() {
         </div>
       </main>
 
-      {/* Footer */}
+      {/* 5. Footer */}
       <footer className="announcement-footer">
-        <p>
-          Goodword Entrepreneurship Center · Entrepreneurship Center
-        </p>
-        <span className="footer-subtext">
-          Applications are submitted and processed through JobCandii.
-        </span>
+        <div className="footer-content">
+          <p className="footer-title">
+            Goodwork Entrepreneurship Center
+          </p>
+          <p className="footer-tagline">
+            Empowering students and aspiring professionals with practical industry experience.
+          </p>
+          <span className="footer-subtext">
+            Applications are submitted and processed through JobCandii.
+          </span>
+          <p className="footer-copyright">
+            © {new Date().getFullYear()} Goodwork Entrepreneurship Center. All rights reserved.
+          </p>
+        </div>
       </footer>
 
-      {/* 3. Job Details Modal */}
+      {/* 6. Job Details Modal */}
       {activeModalJob && (
         <div
           className="modal-backdrop"
@@ -358,7 +518,7 @@ export default function App() {
 
               <div className="modal-meta-row">
                 <span className="modal-meta-item">
-                  🏢 {jobDetails?.company || "Goodword Entrepreneurship Center"}
+                  🏢 {jobDetails?.company || "Goodwork Entrepreneurship Center"}
                 </span>
                 <span className="modal-meta-item">
                   📍 {jobDetails?.location || "Chennai"}
@@ -472,7 +632,7 @@ export default function App() {
                   {Array.isArray(jobDetails.requirements) &&
                     jobDetails.requirements.length > 0 && (
                       <div className="modal-section">
-                        <h3 className="section-title">Requirements & Qualifications</h3>
+                        <h3 className="section-title">Requirements &amp; Qualifications</h3>
                         <ul className="modal-checklist">
                           {jobDetails.requirements.map((req, i) => (
                             <li key={i}>
@@ -511,7 +671,7 @@ export default function App() {
                   {Array.isArray(jobDetails.benefits) &&
                     jobDetails.benefits.length > 0 && (
                       <div className="modal-section">
-                        <h3 className="section-title">Perks & Benefits</h3>
+                        <h3 className="section-title">Perks &amp; Benefits</h3>
                         <ul className="modal-checklist">
                           {jobDetails.benefits.map((b, i) => (
                             <li key={i}>

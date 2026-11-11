@@ -2,30 +2,37 @@
 
 :root {
   /* Goodwork Entrepreneurship Center Brand Colors */
-  --brand-navy: #0f3051;         /* Logo's primary dark navy */
-  --brand-navy-dark: #0a223a;
-  --brand-teal: #029a9b;         /* Logo's signature teal */
-  --brand-teal-hover: #028283;
+  --brand-navy: #0f3051;
+  --brand-navy-dark: #07192d;
+  --brand-navy-card: #0a223a;
+  --brand-teal: #029a9b;
+  --brand-teal-hover: #008283;
   --brand-teal-light: #edf9f9;
-  --brand-teal-border: #c9e8e8;
+  --brand-teal-border: #c4e5e5;
+  --brand-teal-soft: rgba(2, 154, 155, 0.1);
 
-  --gold: #d4af37;               /* Accent gold */
-  --gold-rich: #c49826;
+  --accent-gold: #c49826;
+  --accent-gold-light: #fef9ed;
 
   --white: #ffffff;
-  --bg-page: #f5f8fb;            /* Minimal, crisp announcement board background */
+  --bg-page: #f8fafc;
+  --bg-surface: #ffffff;
   --card-bg: #ffffff;
-  --card-border: #e2ecf5;
-  --light-surface: #edf8f8;
-  --light-border: #d8e8f2;
+  --card-border: #e2e8f0;
+  --card-border-hover: #029a9b;
+  --light-border: #e9f0f6;
 
-  --text-dark: #0f3051;
-  --text-muted: #5e7288;
-  --text-light: #7c90a5;
+  --text-dark: #0f172a;
+  --text-body: #334155;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
 
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
   --shadow-sm: 0 2px 8px rgba(15, 48, 81, 0.05);
-  --shadow-card: 0 4px 18px rgba(15, 48, 81, 0.06);
-  --shadow-hover: 0 14px 32px rgba(2, 154, 155, 0.16);
+  --shadow-card: 0 4px 16px rgba(15, 48, 81, 0.06);
+  --shadow-hover: 0 16px 36px rgba(2, 154, 155, 0.15);
+  --shadow-elevated: 0 20px 45px -10px rgba(15, 48, 81, 0.12);
+  --shadow-modal: 0 30px 70px rgba(7, 25, 45, 0.35);
 }
 
 * {
@@ -35,11 +42,12 @@
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: var(--text-dark);
   background-color: var(--bg-page);
-  line-height: 1.5;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Page Container */
@@ -47,74 +55,397 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* 1. Header */
-.announcement-header {
+/* ============================================================================
+   1. TOP NAVIGATION BAR
+   ============================================================================ */
+.portal-navbar {
   background: var(--white);
-  border-bottom: 1px solid var(--light-border);
-  padding: 34px 24px 30px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 2px 10px rgba(15, 48, 81, 0.04);
+  border-bottom: 1px solid var(--card-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
 }
 
-.logo-container {
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 24px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-  max-width: 100%;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.school-logo {
-  max-width: 300px;
-  width: 100%;
-  height: auto;
-  max-height: 85px;
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  max-height: 62px;
+  width: auto;
   object-fit: contain;
   display: block;
 }
 
-.header-meta {
-  max-width: 700px;
+.navbar-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-.school-name {
-  display: inline-block;
-  color: var(--brand-teal);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.announcement-header h1 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(25px, 4vw, 34px);
+.navbar-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
   color: var(--brand-navy);
-  margin-bottom: 8px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  line-height: 1.25;
+  background: var(--bg-page);
+  border: 1px solid var(--card-border);
+  padding: 6px 12px;
+  border-radius: 20px;
 }
 
-.announcement-header p {
+.live-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--brand-teal);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(2, 154, 155, 0.25);
+  display: inline-block;
+  animation: pulseLive 2s infinite ease-in-out;
+}
+
+@keyframes pulseLive {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 3px rgba(2, 154, 155, 0.25);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 5px rgba(2, 154, 155, 0.12);
+  }
+}
+
+.navbar-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--brand-navy);
+  color: var(--white);
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.navbar-cta-btn:hover {
+  background: var(--brand-teal);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+/* ============================================================================
+   2. HERO SECTION (Curved Bottom Arc Matching Reference Design)
+   ============================================================================ */
+.portal-hero {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-image: url('./assets/hero-bg.jpg');
+  background-size: cover;
+  background-position: center 25%;
+  background-repeat: no-repeat;
+  color: var(--white);
+  padding: 64px 24px 200px;
+  text-align: center;
+  overflow: hidden;
+  /* Smooth downward arc matching the reference design */
+  border-bottom-left-radius: 50% 140px;
+  border-bottom-right-radius: 50% 140px;
+  box-shadow: 0 16px 36px rgba(7, 25, 45, 0.12);
+  /* Smooth visual entrance that never triggers layout shifts */
+  animation: heroVisualFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroVisualFadeIn {
+  0% {
+    opacity: 0.92;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portal-hero {
+    animation: none;
+  }
+  .opportunity-card {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Professional Dark/Navy Overlay for high contrast & text readability */
+.portal-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    145deg,
+    rgba(7, 25, 45, 0.88) 0%,
+    rgba(12, 43, 76, 0.84) 50%,
+    rgba(15, 54, 93, 0.88) 100%
+  );
+  z-index: 1;
+}
+
+/* Subtle ambient radial highlights */
+.portal-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, rgba(2, 154, 155, 0.18) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero-container {
+  max-width: 860px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 3;
+}
+
+.hero-kicker {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  margin-bottom: 16px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.hero-title {
+  font-size: clamp(30px, 4.8vw, 48px);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -1px;
+  color: #ffffff;
+  margin-bottom: 16px;
+  text-wrap: balance;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+.hero-subtitle {
+  font-size: clamp(15px, 2vw, 17px);
+  line-height: 1.65;
+  color: #e2e8f0;
+  max-width: 720px;
+  margin: 0 auto;
+  font-weight: 400;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================================================
+   3. FLOATING INTRODUCTION SHOWCASE (Positioned seamlessly over the hero curve)
+   ============================================================================ */
+.intro-showcase-section {
+  max-width: 1040px;
+  width: 100%;
+  margin: -125px auto 48px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 10;
+  transform: translateZ(0);
+}
+
+.intro-card {
+  background: var(--white);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 34px 40px;
+  box-shadow: var(--shadow-elevated);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle teal top accent line */
+.intro-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand-teal) 0%, #00b4a7 50%, var(--brand-navy) 100%);
+}
+
+.intro-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.intro-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--brand-teal);
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.intro-pill-sparkle {
+  color: var(--brand-teal);
+  font-size: 13px;
+}
+
+.intro-tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
   color: var(--text-muted);
-  font-size: 15px;
+}
+
+.intro-card-title {
+  font-size: clamp(20px, 3.2vw, 25px);
+  font-weight: 800;
+  color: var(--brand-navy);
+  line-height: 1.3;
+  margin-bottom: 12px;
+  letter-spacing: -0.4px;
+}
+
+.intro-card-text {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--text-body);
+  margin-bottom: 24px;
+}
+
+.intro-highlights-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding-top: 22px;
+  border-top: 1px solid var(--light-border);
+}
+
+.intro-highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.highlight-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--brand-teal-light);
+  border: 1px solid var(--brand-teal-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--brand-teal);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.feature-svg-icon {
+  width: 21px;
+  height: 21px;
+  display: block;
+}
+
+.highlight-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.highlight-text strong {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--brand-navy);
+  line-height: 1.25;
+  margin-bottom: 2px;
+}
+
+.highlight-text span {
+  font-size: 11.5px;
+  color: var(--text-muted);
   font-weight: 500;
 }
 
-/* 2. Announcement Section */
+/* ============================================================================
+   4. OPPORTUNITIES SECTION ("Jobs You May Be Interested In")
+   ============================================================================ */
 .announcement-main {
   width: 100%;
-  max-width: 1060px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 36px 24px 60px;
+  padding: 10px 24px 80px;
   flex: 1;
+}
+
+.section-header-centered {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.section-kicker {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--brand-teal);
+  margin-bottom: 8px;
+}
+
+.section-heading {
+  font-size: clamp(24px, 3.8vw, 32px);
+  font-weight: 800;
+  color: var(--brand-navy);
+  letter-spacing: -0.6px;
+  margin-bottom: 8px;
+}
+
+.section-subheading {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
 .board-bar {
@@ -122,15 +453,16 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--light-border);
+  padding: 12px 18px;
+  background: var(--white);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
 }
 
 .board-badge {
   color: var(--brand-navy);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 800;
-  letter-spacing: 0.5px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -142,29 +474,26 @@ body {
   height: 8px;
   background: var(--brand-teal);
   border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(2, 154, 155, 0.2);
+  box-shadow: 0 0 0 3px rgba(2, 154, 155, 0.25);
 }
 
 .board-count {
   color: var(--brand-teal);
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 800;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  background: var(--white);
-  border: 1px solid var(--brand-teal-border);
-  padding: 5px 12px;
-  border-radius: 20px;
 }
 
-/* Opportunities Grid - 5 Cards */
 .opportunities-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
+  perspective: 1200px;
 }
 
-@media (min-width: 769px) {
+/* Center the 5th card on desktop */
+@media (min-width: 860px) {
   .opportunities-grid .opportunity-card:last-child:nth-child(odd) {
     grid-column: 1 / -1;
     width: 100%;
@@ -173,26 +502,50 @@ body {
   }
 }
 
-/* Opportunity Card - Whole card clickable */
+/* Opportunity Card - 3D Interactive Tilt & Sheen */
 .opportunity-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 26px 26px 22px;
+  background: var(--white);
+  border: 1px solid #e1eaf2;
+  border-radius: 18px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
   text-decoration: none;
   color: inherit;
-  transition: all 0.22s ease;
-  box-shadow: var(--shadow-card);
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.45s ease;
+  box-shadow: 0 4px 16px rgba(15, 48, 81, 0.05);
   cursor: pointer;
   position: relative;
+  overflow: hidden;
 }
 
+/* 3D Subtle Specular Sheen / Glare Overlay */
+.opportunity-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle 320px at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(15, 48, 81, 0.06) 0%,
+    rgba(255, 255, 255, 0.15) 30%,
+    transparent 65%
+  );
+  opacity: var(--glare-opacity, 0);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: soft-light;
+  z-index: 5;
+}
+
+/* Professional Clean Hover Effect */
 .opportunity-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--brand-teal);
-  box-shadow: var(--shadow-hover);
+  border-color: #c7d8e8;
+  box-shadow: 0 16px 32px rgba(15, 48, 81, 0.09), 0 4px 12px rgba(15, 48, 81, 0.03);
 }
 
 .card-header {
@@ -203,23 +556,32 @@ body {
   gap: 10px;
 }
 
+/* Category Label: Professional Dark Navy / Near-Black Background with Clear White Text */
 .card-domain {
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--brand-teal);
-  background: var(--brand-teal-light);
-  border: 1px solid var(--brand-teal-border);
-  padding: 4px 10px;
-  border-radius: 6px;
+  letter-spacing: 0.8px;
+  color: #ffffff;
+  background: #0a1c2e;
+  border: 1px solid #1a2f45;
+  padding: 4px 12px;
+  border-radius: 20px;
+  box-shadow: 0 1px 3px rgba(10, 28, 46, 0.15);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.opportunity-card:hover .card-domain {
+  background: #112840;
+  border-color: #244160;
 }
 
 .card-type-chip {
   font-size: 11px;
   font-weight: 700;
-  color: var(--text-muted);
-  background: #f0f4f8;
+  color: var(--brand-navy);
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
   padding: 4px 10px;
   border-radius: 12px;
 }
@@ -230,31 +592,37 @@ body {
   color: var(--brand-navy);
   margin-bottom: 10px;
   line-height: 1.35;
+  letter-spacing: -0.3px;
   transition: color 0.2s ease;
 }
 
 .opportunity-card:hover .card-title {
-  color: var(--brand-teal);
+  color: var(--brand-navy);
 }
 
 .card-desc {
-  color: var(--text-muted);
+  color: var(--text-body);
   font-size: 13.5px;
   line-height: 1.65;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   flex-grow: 1;
 }
 
-/* Card Details (Applicants, Duration & Stipend) */
+/* Card Details (Applicants, Duration & Stipend) - GoodWord Themed Surface */
 .card-details {
-  background: var(--bg-page);
-  border: 1px solid var(--light-border);
-  border-radius: 8px;
+  background: linear-gradient(180deg, #f9fbfd 0%, #f4f8fb 100%);
+  border: 1px solid #e3edf5;
+  border-radius: 10px;
   padding: 12px 14px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-bottom: 18px;
+  transition: border-color 0.2s ease;
+}
+
+.opportunity-card:hover .card-details {
+  border-color: #d1e3f0;
 }
 
 .detail-item {
@@ -277,7 +645,7 @@ body {
 
 .applicants-item {
   padding-bottom: 6px;
-  border-bottom: 1px dashed var(--light-border);
+  border-bottom: 1px dashed #dbe7f2;
 }
 
 .applicants-count {
@@ -289,15 +657,15 @@ body {
 
 .stipend-item {
   padding-top: 6px;
-  border-top: 1px dashed var(--light-border);
+  border-top: 1px dashed #dbe7f2;
 }
 
 .stipend-pill {
-  background: rgba(2, 154, 155, 0.12);
-  color: #028283;
-  border: 1px solid rgba(2, 154, 155, 0.35);
-  padding: 3px 8px;
-  border-radius: 4px;
+  background: var(--brand-teal-light);
+  color: var(--brand-teal-hover);
+  border: 1px solid var(--brand-teal-border);
+  padding: 3px 9px;
+  border-radius: 12px;
   font-size: 11.5px;
   font-weight: 800;
 }
@@ -307,15 +675,18 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 14px;
+  padding-top: 16px;
   border-top: 1px solid #edf2f7;
-  gap: 10px;
+  gap: 12px;
 }
 
 .card-location {
-  font-size: 11.5px;
-  color: var(--text-light);
+  font-size: 12px;
+  color: var(--text-muted);
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .card-actions {
@@ -327,14 +698,14 @@ body {
 .info-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   background: var(--white);
   color: var(--brand-navy);
-  border: 1.5px solid var(--light-border);
-  font-size: 12px;
+  border: 1px solid #d2e0ed;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12.5px;
   font-weight: 700;
-  padding: 8px 13px;
-  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -342,7 +713,7 @@ body {
 
 .info-btn:hover {
   background: var(--brand-teal-light);
-  border-color: var(--brand-teal);
+  border-color: var(--brand-teal-border);
   color: var(--brand-teal);
 }
 
@@ -360,9 +731,10 @@ body {
   color: var(--white);
   font-size: 12.5px;
   font-weight: 700;
-  padding: 9px 16px;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(15, 48, 81, 0.15);
 }
 
 .apply-btn .arrow {
@@ -374,40 +746,75 @@ body {
 .opportunity-card:hover .apply-btn {
   background: var(--brand-teal);
   color: var(--white);
+  box-shadow: 0 4px 14px rgba(2, 154, 155, 0.3);
 }
 
 .opportunity-card:hover .apply-btn .arrow {
   transform: translate(2px, -2px);
 }
 
-/* 3. Footer */
+.opportunity-card:hover .apply-btn .arrow {
+  transform: translate(2px, -2px);
+}
+
+/* ============================================================================
+   5. FOOTER
+   ============================================================================ */
 .announcement-footer {
   background: var(--white);
-  border-top: 1px solid var(--light-border);
-  padding: 24px;
+  border-top: 1px solid var(--card-border);
+  padding: 40px 24px 34px;
   text-align: center;
   color: var(--text-muted);
   font-size: 13px;
+  margin-top: auto;
 }
 
-.announcement-footer p {
-  font-weight: 700;
+.footer-content {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.footer-title {
+  font-weight: 800;
   color: var(--brand-navy);
-  margin-bottom: 4px;
+  font-size: 15px;
+  letter-spacing: -0.2px;
+}
+
+.footer-tagline {
+  font-size: 13px;
+  color: var(--text-body);
 }
 
 .footer-subtext {
-  font-size: 11.5px;
-  color: var(--text-light);
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
 }
 
-/* 4. Job Details Modal */
+.footer-copyright {
+  font-size: 11.5px;
+  color: var(--text-light);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--light-border);
+  width: 100%;
+}
+
+/* ============================================================================
+   6. JOB DETAILS MODAL
+   ============================================================================ */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(10, 34, 58, 0.72);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  background: rgba(7, 25, 45, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -426,8 +833,8 @@ body {
   width: 100%;
   max-width: 680px;
   max-height: 88vh;
-  border-radius: 16px;
-  box-shadow: 0 25px 60px rgba(15, 48, 81, 0.28);
+  border-radius: 18px;
+  box-shadow: var(--shadow-modal);
   border: 1px solid var(--card-border);
   display: flex;
   flex-direction: column;
@@ -448,7 +855,7 @@ body {
 
 .modal-header {
   padding: 24px 28px 18px;
-  border-bottom: 1px solid var(--light-border);
+  border-bottom: 1px solid var(--card-border);
   background: var(--white);
   position: sticky;
   top: 0;
@@ -478,7 +885,7 @@ body {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 1px solid var(--light-border);
+  border: 1px solid var(--card-border);
   background: var(--bg-page);
   color: var(--text-muted);
   display: flex;
@@ -536,8 +943,8 @@ body {
 
 .highlight-box {
   background: var(--bg-page);
-  border: 1px solid var(--light-border);
-  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
   padding: 10px 14px;
   display: flex;
   flex-direction: column;
@@ -572,7 +979,7 @@ body {
 }
 
 .section-title {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -622,7 +1029,7 @@ body {
   font-size: 12px;
   font-weight: 700;
   color: var(--brand-navy);
-  background: var(--light-surface);
+  background: var(--brand-teal-light);
   border: 1px solid var(--brand-teal-border);
   padding: 5px 12px;
   border-radius: 20px;
@@ -701,7 +1108,7 @@ body {
 /* Modal Footer */
 .modal-footer {
   padding: 16px 28px;
-  border-top: 1px solid var(--light-border);
+  border-top: 1px solid var(--card-border);
   background: var(--bg-page);
   display: flex;
   justify-content: flex-end;
@@ -711,12 +1118,12 @@ body {
 
 .modal-cancel-btn {
   background: transparent;
-  border: 1px solid var(--light-border);
+  border: 1px solid var(--card-border);
   color: var(--text-muted);
   font-size: 13px;
   font-weight: 700;
   padding: 10px 18px;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -737,7 +1144,7 @@ body {
   font-size: 13.5px;
   font-weight: 800;
   padding: 10px 22px;
-  border-radius: 6px;
+  border-radius: 8px;
   text-decoration: none;
   transition: all 0.2s ease;
   box-shadow: 0 4px 14px rgba(2, 154, 155, 0.25);
@@ -758,23 +1165,72 @@ body {
   transform: translateX(3px);
 }
 
-/* Responsive (Mobile QR Code Visitors) */
+/* ============================================================================
+   7. RESPONSIVE DESIGN
+   ============================================================================ */
 @media (max-width: 768px) {
-  .announcement-header {
-    padding: 24px 18px 20px;
+  .navbar-container {
+    padding: 12px 18px;
   }
 
-  .school-logo {
-    max-width: 230px;
-    max-height: 65px;
+  .navbar-logo {
+    max-height: 50px;
   }
 
-  .announcement-header p {
+  .navbar-badge {
+    display: none;
+  }
+
+  .portal-hero {
+    min-height: auto;
+    padding: 44px 18px 125px;
+    background-position: center 25%;
+    border-bottom-left-radius: 50% 60px;
+    border-bottom-right-radius: 50% 60px;
+    box-shadow: 0 10px 24px rgba(7, 25, 45, 0.1);
+    animation: heroVisualFadeIn 0.8s ease-out forwards;
+  }
+
+  .hero-kicker {
+    font-size: 10.5px;
+    padding: 0;
+    letter-spacing: 1.2px;
+    margin-bottom: 12px;
+  }
+
+  .hero-title {
+    font-size: 26px;
+    letter-spacing: -0.6px;
+    margin-bottom: 10px;
+  }
+
+  .hero-subtitle {
     font-size: 13.5px;
+    line-height: 1.55;
+  }
+
+  .intro-showcase-section {
+    margin: -70px auto 30px;
+    padding: 0 16px;
+    transform: translateZ(0);
+  }
+
+  .intro-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .intro-card-title {
+    font-size: 19px;
+  }
+
+  .intro-highlights-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .announcement-main {
-    padding: 22px 16px 44px;
+    padding: 0 16px 50px;
   }
 
   .opportunities-grid {
@@ -783,7 +1239,8 @@ body {
   }
 
   .opportunity-card {
-    padding: 20px 18px 18px;
+    padding: 22px 18px 18px;
+    border-radius: 16px;
   }
 
   .card-title {
@@ -800,19 +1257,20 @@ body {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    gap: 8px;
   }
 
   .info-btn,
   .apply-btn {
     flex: 1;
     justify-content: center;
-    padding: 9px 12px;
-    font-size: 12px;
+    padding: 10px 12px;
+    font-size: 12.5px;
   }
 
   .modal-dialog {
     max-height: 94vh;
-    border-radius: 12px;
+    border-radius: 14px;
   }
 
   .modal-header {

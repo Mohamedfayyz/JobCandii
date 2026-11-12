@@ -154,52 +154,58 @@ body {
 }
 
 /* ============================================================================
-   2. HERO SECTION (Curved Bottom Arc Matching Reference Design)
+   2. HERO SECTION (Full-Screen Initial Hero to Curved Transition)
    ============================================================================ */
 .portal-hero {
   position: relative;
-  min-height: 520px;
+  min-height: 540px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  padding: 68px 24px 200px;
+  text-align: center;
+  color: var(--white);
+  overflow: visible;
+}
+
+/* Animated Hero Canvas: Starts full viewport height, then retracts in opposite direction into the curved layout */
+.portal-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   background-image: url('./assets/hero-bg.jpg');
   background-size: cover;
   background-position: center 25%;
   background-repeat: no-repeat;
-  color: var(--white);
-  padding: 64px 24px 200px;
-  text-align: center;
+  z-index: 1;
   overflow: hidden;
-  /* Smooth downward arc matching the reference design */
-  border-bottom-left-radius: 50% 140px;
-  border-bottom-right-radius: 50% 140px;
   box-shadow: 0 16px 36px rgba(7, 25, 45, 0.12);
-  /* Smooth visual entrance that never triggers layout shifts */
-  animation: heroVisualFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* Starts as full-screen hero and retracts upwards into the final curved layout - smooth, gradual transition */
+  animation: heroCurveRetract 1.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: height, border-radius;
 }
 
-@keyframes heroVisualFadeIn {
+@keyframes heroCurveRetract {
   0% {
-    opacity: 0.92;
+    height: calc(100vh - 74px);
+    border-bottom-left-radius: 50% 15px;
+    border-bottom-right-radius: 50% 15px;
+  }
+  30% {
+    border-bottom-left-radius: 50% 80px;
+    border-bottom-right-radius: 50% 80px;
   }
   100% {
-    opacity: 1;
+    height: 100%;
+    border-bottom-left-radius: 50% 140px;
+    border-bottom-right-radius: 50% 140px;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .portal-hero {
-    animation: none;
-  }
-  .opportunity-card {
-    transform: none !important;
-    transition: none !important;
-  }
-}
-
-/* Professional Dark/Navy Overlay for high contrast & text readability */
-.portal-hero::before {
+/* Professional Dark/Navy Overlay inside the hero canvas */
+.portal-hero-bg::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -212,8 +218,8 @@ body {
   z-index: 1;
 }
 
-/* Subtle ambient radial highlights */
-.portal-hero::after {
+/* Subtle ambient radial highlights inside the hero canvas */
+.portal-hero-bg::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -227,6 +233,36 @@ body {
   margin: 0 auto;
   position: relative;
   z-index: 3;
+  animation: heroContentSettle 1.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroContentSettle {
+  0% {
+    transform: translateY(32px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portal-hero-bg {
+    animation: none;
+    height: 100%;
+    border-bottom-left-radius: 50% 140px;
+    border-bottom-right-radius: 50% 140px;
+  }
+  .hero-container {
+    animation: none;
+    transform: none;
+    opacity: 1;
+  }
+  .opportunity-card {
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 .hero-kicker {
@@ -271,7 +307,7 @@ body {
 .intro-showcase-section {
   max-width: 1040px;
   width: 100%;
-  margin: -125px auto 48px;
+  margin: -160px auto 48px;
   padding: 0 24px;
   position: relative;
   z-index: 10;
@@ -502,11 +538,11 @@ body {
   }
 }
 
-/* Opportunity Card - 3D Interactive Tilt & Sheen */
+/* Opportunity Card - Soft Modern Pastel Cyan Treatment (Inspired by Reference) */
 .opportunity-card {
-  background: var(--white);
-  border: 1px solid #e1eaf2;
-  border-radius: 18px;
+  background: linear-gradient(160deg, #eef9fa 0%, #ddf3f5 50%, #d2f0f3 100%);
+  border: 1px solid #c2e6eb;
+  border-radius: 52px 24px 24px 24px;
   padding: 28px;
   display: flex;
   flex-direction: column;
@@ -517,10 +553,27 @@ body {
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.3s ease,
               box-shadow 0.45s ease;
-  box-shadow: 0 4px 16px rgba(15, 48, 81, 0.05);
+  box-shadow: 0 4px 18px rgba(2, 154, 155, 0.08), 0 1px 3px rgba(7, 25, 45, 0.03);
   cursor: pointer;
   position: relative;
   overflow: hidden;
+}
+
+/* Left-side cards: Top-left corner is the distinctive, stronger curved corner; other 3 corners remain softly and smoothly rounded */
+.opportunities-grid .opportunity-card:nth-child(odd) {
+  border-radius: 52px 24px 24px 24px;
+}
+
+/* Right-side cards: Top-right corner is the distinctive, stronger curved corner; other 3 corners remain softly and smoothly rounded */
+.opportunities-grid .opportunity-card:nth-child(even) {
+  border-radius: 24px 52px 24px 24px;
+}
+
+/* Center or featured job cards: Both top-left and top-right corners distinctive; bottom corners smoothly rounded */
+.opportunities-grid .opportunity-card:last-child:nth-child(odd),
+.opportunity-card.featured,
+.opportunity-card.centered {
+  border-radius: 46px 46px 24px 24px;
 }
 
 /* 3D Subtle Specular Sheen / Glare Overlay */
@@ -531,21 +584,20 @@ body {
   border-radius: inherit;
   background: radial-gradient(
     circle 320px at var(--glare-x, 50%) var(--glare-y, 50%),
-    rgba(15, 48, 81, 0.06) 0%,
-    rgba(255, 255, 255, 0.15) 30%,
-    transparent 65%
+    rgba(255, 255, 255, 0.48) 0%,
+    rgba(255, 255, 255, 0.16) 38%,
+    transparent 70%
   );
   opacity: var(--glare-opacity, 0);
   pointer-events: none;
   transition: opacity 0.3s ease;
-  mix-blend-mode: soft-light;
   z-index: 5;
 }
 
-/* Professional Clean Hover Effect */
+/* Professional Soft Elevation & Cyan Glow Hover Effect */
 .opportunity-card:hover {
-  border-color: #c7d8e8;
-  box-shadow: 0 16px 32px rgba(15, 48, 81, 0.09), 0 4px 12px rgba(15, 48, 81, 0.03);
+  border-color: #a0dbe3;
+  box-shadow: 0 16px 36px rgba(2, 154, 155, 0.16), 0 4px 12px rgba(7, 25, 45, 0.04);
 }
 
 .card-header {
@@ -580,10 +632,11 @@ body {
   font-size: 11px;
   font-weight: 700;
   color: var(--brand-navy);
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #c8e7ed;
   padding: 4px 10px;
   border-radius: 12px;
+  backdrop-filter: blur(4px);
 }
 
 .card-title {
@@ -601,28 +654,30 @@ body {
 }
 
 .card-desc {
-  color: var(--text-body);
+  color: #243e54;
   font-size: 13.5px;
   line-height: 1.65;
   margin-bottom: 18px;
   flex-grow: 1;
 }
 
-/* Card Details (Applicants, Duration & Stipend) - GoodWord Themed Surface */
+/* Card Details (Applicants, Duration & Stipend) - Soft Pastel Layered Surface */
 .card-details {
-  background: linear-gradient(180deg, #f9fbfd 0%, #f4f8fb 100%);
-  border: 1px solid #e3edf5;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(6px);
+  border: 1px solid #c8e5eb;
   border-radius: 10px;
   padding: 12px 14px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-bottom: 18px;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .opportunity-card:hover .card-details {
-  border-color: #d1e3f0;
+  border-color: #b2dee5;
+  background: rgba(255, 255, 255, 0.86);
 }
 
 .detail-item {
@@ -634,7 +689,7 @@ body {
 }
 
 .detail-label {
-  color: var(--text-muted);
+  color: #4b667e;
   font-weight: 600;
 }
 
@@ -645,7 +700,7 @@ body {
 
 .applicants-item {
   padding-bottom: 6px;
-  border-bottom: 1px dashed #dbe7f2;
+  border-bottom: 1px dashed #cde2e7;
 }
 
 .applicants-count {
@@ -657,13 +712,13 @@ body {
 
 .stipend-item {
   padding-top: 6px;
-  border-top: 1px dashed #dbe7f2;
+  border-top: 1px dashed #cde2e7;
 }
 
 .stipend-pill {
-  background: var(--brand-teal-light);
+  background: #ffffff;
   color: var(--brand-teal-hover);
-  border: 1px solid var(--brand-teal-border);
+  border: 1px solid #bce1e6;
   padding: 3px 9px;
   border-radius: 12px;
   font-size: 11.5px;
@@ -676,13 +731,13 @@ body {
   justify-content: space-between;
   align-items: center;
   padding-top: 16px;
-  border-top: 1px solid #edf2f7;
+  border-top: 1px solid #c8e5eb;
   gap: 12px;
 }
 
 .card-location {
   font-size: 12px;
-  color: var(--text-muted);
+  color: #3f5d75;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
@@ -699,9 +754,9 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--white);
+  background: #ffffff;
   color: var(--brand-navy);
-  border: 1px solid #d2e0ed;
+  border: 1px solid #bfdfe5;
   padding: 8px 14px;
   border-radius: 8px;
   font-size: 12.5px;
@@ -712,9 +767,10 @@ body {
 }
 
 .info-btn:hover {
-  background: var(--brand-teal-light);
-  border-color: var(--brand-teal-border);
+  background: #ffffff;
+  border-color: var(--brand-teal);
   color: var(--brand-teal);
+  box-shadow: 0 2px 8px rgba(2, 154, 155, 0.18);
 }
 
 .info-icon {
@@ -747,10 +803,6 @@ body {
   background: var(--brand-teal);
   color: var(--white);
   box-shadow: 0 4px 14px rgba(2, 154, 155, 0.3);
-}
-
-.opportunity-card:hover .apply-btn .arrow {
-  transform: translate(2px, -2px);
 }
 
 .opportunity-card:hover .apply-btn .arrow {
@@ -807,20 +859,20 @@ body {
 }
 
 /* ============================================================================
-   6. JOB DETAILS MODAL
+   6. JOB DETAILS MODAL (Premium Modern Redesign)
    ============================================================================ */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(7, 25, 45, 0.72);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(7, 25, 45, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  animation: modalFadeIn 0.2s ease-out;
+  padding: 24px;
+  animation: modalFadeIn 0.22s ease-out;
 }
 
 @keyframes modalFadeIn {
@@ -829,23 +881,23 @@ body {
 }
 
 .modal-dialog {
-  background: var(--white);
+  background: #ffffff;
   width: 100%;
-  max-width: 680px;
+  max-width: 720px;
   max-height: 88vh;
-  border-radius: 18px;
-  box-shadow: var(--shadow-modal);
-  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  box-shadow: 0 24px 64px -12px rgba(7, 25, 45, 0.22), 0 8px 24px -4px rgba(7, 25, 45, 0.08);
+  border: 1px solid #e2edf5;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: modalSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes modalSlideUp {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.97);
+    transform: translateY(18px) scale(0.98);
   }
   to {
     opacity: 1;
@@ -854,9 +906,9 @@ body {
 }
 
 .modal-header {
-  padding: 24px 28px 18px;
-  border-bottom: 1px solid var(--card-border);
-  background: var(--white);
+  padding: 26px 32px 20px;
+  border-bottom: 1px solid #edf3f7;
+  background: #ffffff;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -866,18 +918,18 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .modal-domain-badge {
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.9px;
   color: var(--brand-teal);
-  background: var(--brand-teal-light);
-  border: 1px solid var(--brand-teal-border);
-  padding: 4px 10px;
+  background: #eef8f9;
+  border: 1px solid #cceef1;
+  padding: 4px 12px;
   border-radius: 6px;
 }
 
@@ -885,114 +937,152 @@ body {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 1px solid var(--card-border);
-  background: var(--bg-page);
-  color: var(--text-muted);
+  border: 1px solid #e2edf5;
+  background: #f8fafc;
+  color: #64748b;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 700;
-  transition: all 0.2s ease;
-  font-family: inherit;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal-close-btn:hover {
-  background: #ffebee;
-  color: #d32f2f;
-  border-color: #ffcdd2;
+  background: #07192d;
+  color: #ffffff;
+  border-color: #07192d;
+  transform: rotate(90deg);
 }
 
 .modal-title {
-  font-size: 22px;
+  font-size: 25px;
   font-weight: 800;
-  color: var(--brand-navy);
-  margin-bottom: 8px;
-  line-height: 1.3;
+  color: #07192d;
+  margin-bottom: 12px;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
 }
 
 .modal-meta-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  font-size: 12px;
-  color: var(--text-muted);
+  gap: 16px;
+  font-size: 12.5px;
+  color: #52667a;
   font-weight: 600;
+  align-items: center;
 }
 
 .modal-meta-item {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+}
+
+.modal-meta-item .meta-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--brand-teal);
+  flex-shrink: 0;
 }
 
 .modal-body {
-  padding: 22px 28px;
+  padding: 26px 32px;
   overflow-y: auto;
   flex: 1;
 }
 
-/* Highlights Grid */
+/* Highlights Strip - Single Sleek Executive Metrics Bar */
 .modal-highlights-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 12px;
-  margin-bottom: 22px;
+  grid-template-columns: repeat(4, 1fr);
+  background: linear-gradient(180deg, #f9fbfd 0%, #f4f8fb 100%);
+  border: 1px solid #e1ecf4;
+  border-radius: 14px;
+  padding: 6px;
+  margin-bottom: 28px;
+  gap: 0;
 }
 
 .highlight-box {
-  background: var(--bg-page);
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid #e5eff5;
+  border-radius: 0;
+  padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  justify-content: center;
+  gap: 5px;
+  transition: background 0.2s ease;
+}
+
+.highlight-box:last-child {
+  border-right: none;
 }
 
 .highlight-label {
-  font-size: 10.5px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-muted);
+  letter-spacing: 0.8px;
+  color: #64748b;
 }
 
 .highlight-val {
   font-size: 13.5px;
-  font-weight: 800;
-  color: var(--brand-navy);
+  font-weight: 700;
+  color: #07192d;
+  line-height: 1.35;
 }
 
 .highlight-gold {
-  color: #a36900;
+  color: var(--brand-teal-hover);
+  font-weight: 800;
 }
 
 .highlight-deadline {
-  color: #c0392b;
+  color: #991b1b;
+  font-weight: 700;
 }
 
 /* Modal Sections */
 .modal-section {
-  margin-bottom: 20px;
+  margin-bottom: 26px;
+}
+
+.modal-section:last-child {
+  margin-bottom: 8px;
 }
 
 .section-title {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--brand-navy);
-  margin-bottom: 8px;
-  padding-bottom: 4px;
-  border-bottom: 1.5px solid var(--brand-teal-light);
+  letter-spacing: 0.9px;
+  color: #07192d;
+  margin-bottom: 12px;
+  padding-bottom: 0;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title::before {
+  content: '';
+  width: 3px;
+  height: 14px;
+  background: var(--brand-teal);
+  border-radius: 2px;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 .section-desc {
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: var(--text-dark);
+  font-size: 14px;
+  line-height: 1.75;
+  color: #334155;
   white-space: pre-line;
 }
 
@@ -1000,23 +1090,38 @@ body {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
 }
 
 .modal-checklist li {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
   font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--text-dark);
+  line-height: 1.65;
+  color: #334155;
 }
 
 .check-bullet {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #eef8f9;
+  border: 1px solid #d2eff2;
   color: var(--brand-teal);
-  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   margin-top: 1px;
+}
+
+.check-bullet.star-bullet {
+  background: #fefce8;
+  border-color: #fef08a;
+  color: #ca8a04;
 }
 
 .skills-pill-wrap {
@@ -1028,11 +1133,17 @@ body {
 .skill-pill {
   font-size: 12px;
   font-weight: 700;
-  color: var(--brand-navy);
-  background: var(--brand-teal-light);
-  border: 1px solid var(--brand-teal-border);
-  padding: 5px 12px;
+  color: #07192d;
+  background: #f1f8fa;
+  border: 1px solid #d0eaef;
+  padding: 6px 14px;
   border-radius: 20px;
+  transition: all 0.2s ease;
+}
+
+.skill-pill:hover {
+  background: #e2f4f7;
+  border-color: #bae5ec;
 }
 
 /* Loading State */
@@ -1107,22 +1218,26 @@ body {
 
 /* Modal Footer */
 .modal-footer {
-  padding: 16px 28px;
-  border-top: 1px solid var(--card-border);
-  background: var(--bg-page);
+  padding: 18px 32px;
+  border-top: 1px solid #edf3f7;
+  background: #ffffff;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 14px;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  box-shadow: 0 -4px 16px rgba(7, 25, 45, 0.03);
 }
 
 .modal-cancel-btn {
   background: transparent;
-  border: 1px solid var(--card-border);
-  color: var(--text-muted);
+  border: 1px solid #dce6ee;
+  color: #64748b;
   font-size: 13px;
   font-weight: 700;
-  padding: 10px 18px;
+  padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -1130,9 +1245,9 @@ body {
 }
 
 .modal-cancel-btn:hover {
-  background: var(--white);
-  color: var(--brand-navy);
-  border-color: var(--text-muted);
+  background: #f8fafc;
+  color: #07192d;
+  border-color: #cbd5e1;
 }
 
 .modal-apply-btn {
@@ -1143,7 +1258,7 @@ body {
   color: var(--white);
   font-size: 13.5px;
   font-weight: 800;
-  padding: 10px 22px;
+  padding: 11px 24px;
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -1153,7 +1268,7 @@ body {
 .modal-apply-btn:hover {
   background: var(--brand-navy);
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(15, 48, 81, 0.25);
+  box-shadow: 0 6px 20px rgba(7, 25, 45, 0.25);
 }
 
 .modal-apply-btn .arrow {
@@ -1184,11 +1299,24 @@ body {
   .portal-hero {
     min-height: auto;
     padding: 44px 18px 125px;
-    background-position: center 25%;
-    border-bottom-left-radius: 50% 60px;
-    border-bottom-right-radius: 50% 60px;
-    box-shadow: 0 10px 24px rgba(7, 25, 45, 0.1);
-    animation: heroVisualFadeIn 0.8s ease-out forwards;
+    overflow: visible;
+  }
+
+  .portal-hero-bg {
+    animation: heroCurveRetractMobile 1.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes heroCurveRetractMobile {
+    0% {
+      height: calc(100vh - 66px);
+      border-bottom-left-radius: 50% 12px;
+      border-bottom-right-radius: 50% 12px;
+    }
+    100% {
+      height: 100%;
+      border-bottom-left-radius: 50% 60px;
+      border-bottom-right-radius: 50% 60px;
+    }
   }
 
   .hero-kicker {
@@ -1210,7 +1338,7 @@ body {
   }
 
   .intro-showcase-section {
-    margin: -70px auto 30px;
+    margin: -90px auto 30px;
     padding: 0 16px;
     transform: translateZ(0);
   }
@@ -1240,7 +1368,17 @@ body {
 
   .opportunity-card {
     padding: 22px 18px 18px;
-    border-radius: 16px;
+    border-radius: 42px 20px 20px 20px;
+  }
+
+  .opportunities-grid .opportunity-card:nth-child(even) {
+    border-radius: 20px 42px 20px 20px;
+  }
+
+  .opportunities-grid .opportunity-card:last-child:nth-child(odd),
+  .opportunity-card.featured,
+  .opportunity-card.centered {
+    border-radius: 36px 36px 20px 20px;
   }
 
   .card-title {
@@ -1269,28 +1407,64 @@ body {
   }
 
   .modal-dialog {
-    max-height: 94vh;
-    border-radius: 14px;
+    max-height: 92vh;
+    border-radius: 16px;
+    margin: 8px;
   }
 
   .modal-header {
-    padding: 18px 20px 14px;
+    padding: 20px 20px 16px;
   }
 
   .modal-title {
-    font-size: 19px;
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .modal-meta-row {
+    gap: 10px;
+    font-size: 12px;
   }
 
   .modal-body {
-    padding: 16px 20px;
+    padding: 18px 20px;
+  }
+
+  .modal-highlights-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 22px;
+    padding: 4px;
+  }
+
+  .highlight-box {
+    padding: 10px 12px;
+  }
+
+  .highlight-box:nth-child(2) {
+    border-right: none;
+  }
+
+  .highlight-box:nth-child(1),
+  .highlight-box:nth-child(2) {
+    border-bottom: 1px solid #e5eff5;
   }
 
   .modal-footer {
     padding: 14px 20px;
+    gap: 10px;
+  }
+
+  .modal-cancel-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 14px;
+    font-size: 13px;
   }
 
   .modal-apply-btn {
-    flex: 1;
+    flex: 1.4;
     justify-content: center;
+    padding: 10px 16px;
+    font-size: 13px;
   }
 }

@@ -69,6 +69,7 @@ const JOB_CANDII_URL =
   "https://job-candii.vercel.app/dashboard/seeker?module=browse";
 
 const API_BASE_URL = "https://job-candii.onrender.com/api/job";
+const COMPANY_API_URL = "https://job-candii.onrender.com/api/company";
 
 /**
  * Fetches job details from JobCandii API with resilient fallback.
@@ -113,8 +114,9 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Live JobCandii data state for cards (applicants count, location, full data)
+  // Live JobCandii data state for cards and company profile
   const [jobsMap, setJobsMap] = useState({});
+  const [companyMap, setCompanyMap] = useState({});
   const [isJobsLoading, setIsJobsLoading] = useState(true);
 
   // Ensure the page always starts from the very top on load or reload
@@ -139,31 +141,48 @@ export default function App() {
     };
   }, []);
 
-  // Fetch live jobs data once on mount for efficient card rendering
+  // Fetch live jobs data and live company profiles from JobCandii on mount
   useEffect(() => {
     let isMounted = true;
 
-    async function loadJobsData() {
+    async function loadData() {
       try {
-        const res = await fetch(API_BASE_URL);
-        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-        const data = await res.json();
-        if (Array.isArray(data) && isMounted) {
-          const map = {};
-          data.forEach((job) => {
-            if (job._id) map[job._id] = job;
-            if (job.id) map[job.id] = job;
-          });
-          setJobsMap(map);
+        const [jobsRes, companyRes] = await Promise.allSettled([
+          fetch(API_BASE_URL),
+          fetch(COMPANY_API_URL)
+        ]);
+
+        if (companyRes.status === "fulfilled" && companyRes.value.ok) {
+          const compData = await companyRes.value.json();
+          if (Array.isArray(compData) && isMounted) {
+            const cMap = {};
+            compData.forEach((c) => {
+              if (c._id) cMap[c._id] = c.name;
+              if (c.id) cMap[c.id] = c.name;
+            });
+            setCompanyMap(cMap);
+          }
+        }
+
+        if (jobsRes.status === "fulfilled" && jobsRes.value.ok) {
+          const data = await jobsRes.value.json();
+          if (Array.isArray(data) && isMounted) {
+            const map = {};
+            data.forEach((job) => {
+              if (job._id) map[job._id] = job;
+              if (job.id) map[job.id] = job;
+            });
+            setJobsMap(map);
+          }
         }
       } catch (err) {
-        console.warn("Could not load live jobs from JobCandii on mount:", err);
+        console.warn("Could not load live data from JobCandii on mount:", err);
       } finally {
         if (isMounted) setIsJobsLoading(false);
       }
     }
 
-    loadJobsData();
+    loadData();
 
     return () => {
       isMounted = false;
@@ -549,7 +568,9 @@ export default function App() {
                     <path d="M9 22v-4h6v4"/>
                     <path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/>
                   </svg>
-                  {jobDetails?.company || "Goodwork Entrepreneurship Center"}
+                  {(jobDetails?.companyId && companyMap[jobDetails.companyId]) ||
+                    jobDetails?.company ||
+                    "GoodWord Entrepreneurship Center"}
                 </span>
                 <span className="modal-meta-item">
                   <svg className="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

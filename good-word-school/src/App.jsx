@@ -68,8 +68,57 @@ const OPPORTUNITIES = [
 const JOB_CANDII_URL =
   "https://job-candii.vercel.app/dashboard/seeker?module=browse";
 
-const API_BASE_URL = "https://job-candii.onrender.com/api/job";
-const COMPANY_API_URL = "https://job-candii.onrender.com/api/company";
+const JOBCANDII_BASE_URL =
+  import.meta.env?.VITE_JOBCANDII_API_URL ||
+  import.meta.env?.VITE_API_URL ||
+  (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+    ? "http://localhost:5000"
+    : "https://job-candii.onrender.com");
+
+const API_BASE_URL = `${JOBCANDII_BASE_URL}/api/job`;
+const COMPANY_API_URL = `${JOBCANDII_BASE_URL}/api/company`;
+
+/**
+ * Tracks external job views from GoodWord into JobCandii.
+ * Increments goodwordViews in JobCandii MongoDB without altering normal view counts.
+ */
+function recordGoodWordView(jobId) {
+  if (!jobId) return;
+
+  console.log(`[GoodWord] Recording external view for Job ID: ${jobId}`);
+  const payload = JSON.stringify({ source: "goodword" });
+  const headers = { "Content-Type": "application/json" };
+
+  // Primary endpoint request with keepalive
+  fetch(`${API_BASE_URL}/${jobId}/external-view`, {
+    method: "POST",
+    headers,
+    body: payload,
+    keepalive: true,
+  })
+    .then((res) => {
+      console.log(`[GoodWord] External view tracked (Status: ${res.status}) for ${jobId}`);
+      if (!res.ok && !API_BASE_URL.includes("localhost:5000")) {
+        fetch(`http://localhost:5000/api/job/${jobId}/external-view`, {
+          method: "POST",
+          headers,
+          body: payload,
+          keepalive: true,
+        }).catch(() => {});
+      }
+    })
+    .catch((err) => {
+      console.warn(`[GoodWord] Primary tracking fetch failed, trying local fallback:`, err);
+      if (!API_BASE_URL.includes("localhost:5000")) {
+        fetch(`http://localhost:5000/api/job/${jobId}/external-view`, {
+          method: "POST",
+          headers,
+          body: payload,
+          keepalive: true,
+        }).catch(() => {});
+      }
+    });
+}
 
 /**
  * Fetches job details from JobCandii API with resilient fallback.
@@ -142,6 +191,7 @@ export default function App() {
   }, []);
 
   // Fetch live jobs data and live company profiles from JobCandii on mount
+  
   useEffect(() => {
     let isMounted = true;
 
@@ -176,7 +226,7 @@ export default function App() {
           }
         }
       } catch (err) {
-        console.warn("Could not load live data from JobCandii on mount:", err);
+        console.warn("Could not load live data from JobCandii on mount : ", err);
       } finally {
         if (isMounted) setIsJobsLoading(false);
       }
@@ -192,6 +242,11 @@ export default function App() {
   const handleOpenModal = (opportunity) => {
     setActiveModalJob(opportunity);
     setError(null);
+
+    // Track external view in JobCandii
+    if (opportunity?.jobCandiiId) {
+      recordGoodWordView(opportunity.jobCandiiId);
+    }
 
     // If already available from live jobs fetch, use immediately
     const cached = jobsMap[opportunity.jobCandiiId];

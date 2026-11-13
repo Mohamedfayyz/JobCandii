@@ -14,7 +14,7 @@ const OPPORTUNITIES = [
     title: "IT – Web Development Intern",
     domain: "Information Technology",
     type: "Internship",
-    stipend: "Not Disclosed",
+    stipend: "As per Company Standard",
     duration: "3 Months",
     description:
       "Develop responsive web interfaces, optimize site performance, and assist in maintaining modern web platforms and internal digital tools."
@@ -25,7 +25,7 @@ const OPPORTUNITIES = [
     title: "Full Stack Development Intern",
     domain: "Software Development",
     type: "Internship",
-    stipend: "Not Disclosed",
+    stipend: "As per Company Standard",
     duration: "3 Months",
     description:
       "Build dynamic full-stack applications, implement frontend features, integrate RESTful APIs, and support backend database workflows."
@@ -36,7 +36,7 @@ const OPPORTUNITIES = [
     title: "UI / UX Design Intern",
     domain: "Design & Creative",
     type: "Internship",
-    stipend: "Not Disclosed",
+    stipend: "As per Company Standard",
     duration: "3 Months",
     description:
       "Design user-friendly interfaces, create wireframes and interactive prototypes, and contribute to cohesive visual design systems."
@@ -47,7 +47,7 @@ const OPPORTUNITIES = [
     title: "Purchase Executive Intern",
     domain: "Procurement & Operations",
     type: "Internship",
-    stipend: "Not Disclosed",
+    stipend: "As per Company Standard",
     duration: "3 Months",
     description:
       "Support procurement workflows, vendor communication, purchase order processing, and market quotation analysis for business operations."
@@ -58,7 +58,7 @@ const OPPORTUNITIES = [
     title: "Mechanical Designer Intern",
     domain: "Engineering & Design",
     type: "Internship",
-    stipend: "Not Disclosed",
+    stipend: "As per Company Standard",
     duration: "3 Months",
     description:
       "Create detailed 2D/3D CAD models, assist in mechanical prototyping, and prepare technical drawings for new product developments."
@@ -460,6 +460,51 @@ export default function App() {
               </div>
             </div>
           </div>
+
+          {/* Natural second row: Duration & Stipend with same visual style (icon box, label, and value) */}
+          <div className="intro-highlights-row intro-program-row">
+            <div className="intro-highlight-item">
+              <span className="highlight-icon" aria-hidden="true">
+                <svg
+                  className="feature-svg-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </span>
+              <div className="highlight-text">
+                <strong>Duration</strong>
+                <span>3 Months</span>
+              </div>
+            </div>
+
+            <div className="intro-highlight-item">
+              <span className="highlight-icon" aria-hidden="true">
+                <svg
+                  className="feature-svg-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect width="20" height="14" x="2" y="7" rx="2" />
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+              </span>
+              <div className="highlight-text">
+                <strong>Stipend</strong>
+                <span>As per Company Standard</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -469,7 +514,7 @@ export default function App() {
           <span className="section-kicker">ACTIVE OPENINGS</span>
           <h2 className="section-heading">Jobs You May Be Interested In</h2>
           <p className="section-subheading">
-            Review detailed requirements, live applicant counts, and apply directly through JobCandii.
+            Review detailed requirements, program pathways, and apply directly through JobCandii.
           </p>
         </div>
 
@@ -481,12 +526,6 @@ export default function App() {
         <div className="opportunities-grid">
           {OPPORTUNITIES.map((opp) => {
             const liveJob = jobsMap[opp.jobCandiiId];
-            const applicantsCount =
-              liveJob?.applicantCount !== undefined
-                ? liveJob.applicantCount
-                : isJobsLoading
-                ? "..."
-                : 0;
             const locationText =
               liveJob?.location ||
               (isJobsLoading ? "Loading..." : "Location not specified");
@@ -511,30 +550,6 @@ export default function App() {
                 <h3 className="card-title">{opp.title}</h3>
 
                 <p className="card-desc">{opp.description}</p>
-
-                {/* Card Details: 1. Applicants, 2. Duration, 3. Stipend */}
-                <div className="card-details">
-                  <div className="detail-item applicants-item">
-                    <span className="detail-label">Applicants:</span>
-                    <span className="detail-value applicants-count">
-                      {applicantsCount}
-                    </span>
-                  </div>
-                  {opp.duration && (
-                    <div className="detail-item duration-item">
-                      <span className="detail-label">Duration:</span>
-                      <span className="detail-value">{opp.duration}</span>
-                    </div>
-                  )}
-                  {opp.stipend && (
-                    <div className="detail-item stipend-item">
-                      <span className="detail-label">Stipend:</span>
-                      <span className="detail-value stipend-pill">
-                        {opp.stipend}
-                      </span>
-                    </div>
-                  )}
-                </div>
 
                 <div className="card-footer">
                   <span className="card-location">📍 {locationText}</span>
@@ -697,7 +712,7 @@ export default function App() {
                       <span className="highlight-val highlight-gold">
                         {jobDetails.salaryMin && jobDetails.salaryMax
                           ? `₹${jobDetails.salaryMin.toLocaleString("en-IN")} – ₹${jobDetails.salaryMax.toLocaleString("en-IN")} / Mo`
-                          : "Stipend Disclosed on Selection"}
+                          : "As per Company Standard"}
                       </span>
                     </div>
 

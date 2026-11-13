@@ -442,6 +442,27 @@ body {
   font-weight: 500;
 }
 
+/* Natural second row for Duration & Stipend inside GoodWork card - Centered horizontally as a group */
+.intro-highlights-row.intro-program-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 56px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--light-border);
+}
+
+.intro-program-row .intro-highlight-item {
+  flex: 0 0 auto;
+}
+
+.intro-program-row .highlight-text span {
+  color: var(--brand-navy);
+  font-weight: 600;
+  font-size: 12px;
+}
+
 /* ============================================================================
    4. OPPORTUNITIES SECTION ("Jobs You May Be Interested In")
    ============================================================================ */
@@ -655,9 +676,9 @@ body {
 
 .card-desc {
   color: #243e54;
-  font-size: 13.5px;
+  font-size: 14px;
   line-height: 1.65;
-  margin-bottom: 18px;
+  margin-bottom: 24px;
   flex-grow: 1;
 }
 
@@ -730,9 +751,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 16px;
+  padding-top: 18px;
   border-top: 1px solid #c8e5eb;
   gap: 12px;
+  margin-top: auto;
 }
 
 .card-location {
@@ -1355,6 +1377,14 @@ body {
   .intro-highlights-row {
     grid-template-columns: 1fr;
     gap: 14px;
+  }
+
+  .intro-highlights-row.intro-program-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-top: 14px;
+    padding-top: 14px;
   }
 
   .announcement-main {

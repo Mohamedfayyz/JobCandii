@@ -87,10 +87,28 @@ body {
 }
 
 .navbar-logo {
-  max-height: 62px;
+  max-height: 64px;
   width: auto;
   object-fit: contain;
   display: block;
+}
+
+.navbar-collab-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.navbar-collab-cross {
+  font-size: 19px;
+  font-weight: 300;
+  color: #94a3b8;
+  line-height: 1;
+  user-select: none;
+}
+
+.navbar-logo.navbar-partner-logo {
+  max-height: 58px;
 }
 
 .navbar-meta {
@@ -1311,8 +1329,17 @@ body {
   }
 
   .navbar-logo {
-    max-height: 50px;
+    max-height: 52px;
   }
+
+  .navbar-logo.navbar-partner-logo {
+    max-height: 46px;
+  }
+
+  .navbar-collab-cross {
+    font-size: 15px;
+  }
+
 
   .navbar-badge {
     display: none;

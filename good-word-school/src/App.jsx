@@ -1,6 +1,18 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import goodwordLogo from "./assets/goodword-logo.png";
+import partnerLogo from "./assets/partner-logo.png";
+
+// ============================================================================
+// PARTNER / COLLABORATION CONFIGURATION
+// Configurable placeholder for the partner organization logo & name
+// ============================================================================
+const PARTNER_CONFIG = {
+  name: "MRG Engineering",
+  logo: partnerLogo,
+  badgeText: "Industry Collaboration",
+  collaborationTitle: "GoodWord × MRG Engineering — Collaboration"
+};
 
 // ============================================================================
 // OPPORTUNITIES DATA - Goodwork Entrepreneurship Center
@@ -298,9 +310,9 @@ export default function App() {
     };
   }, [activeModalJob]);
 
-  // Verified JobCandii direct job URL
+  // Verified JobCandii direct job URL (inside Seeker Dashboard Browse Jobs view)
   const jobCandiiApplyUrl = activeModalJob?.jobCandiiId
-    ? `https://job-candii.vercel.app/jobs/${activeModalJob.jobCandiiId}`
+    ? `https://job-candii.vercel.app/dashboard/seeker?module=browse&jobId=${activeModalJob.jobCandiiId}`
     : JOB_CANDII_URL;
 
   // Light, subtle 3D Tilt Hover Animation
@@ -337,11 +349,19 @@ export default function App() {
       <nav className="portal-navbar">
         <div className="navbar-container">
           <div className="navbar-brand">
-            <img
-              src={goodwordLogo}
-              alt="Goodwork Entrepreneurship Center Logo"
-              className="navbar-logo"
-            />
+            <div className="navbar-collab-group">
+              <img
+                src={goodwordLogo}
+                alt="Goodwork Entrepreneurship Center Logo"
+                className="navbar-logo"
+              />
+              <span className="navbar-collab-cross" aria-hidden="true">×</span>
+              <img
+                src={PARTNER_CONFIG.logo}
+                alt={`${PARTNER_CONFIG.name} Logo`}
+                className="navbar-logo navbar-partner-logo"
+              />
+            </div>
           </div>
           <div className="navbar-meta">
             <span className="navbar-badge">
